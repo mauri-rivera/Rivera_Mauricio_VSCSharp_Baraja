@@ -2,11 +2,12 @@
 Mazo muestraCarta = new Mazo();
 Jugador jugador1 = new Jugador("Jugador A");
 Jugador jugador2 = new Jugador("Jugador B");
-//muestraCarta.MostrarListaCartas();
 
 Console.WriteLine("--------------------------------------------------------");
-
-//List<Carta> listaPrueba = new List<Carta>();
+Console.WriteLine("Lista de cartas ordenadas antes de empezar a barajar");
+Console.WriteLine("--------------------------------------------------------");
+muestraCarta.MostrarListaCartas();
+Console.WriteLine("--------------------------------------------------------");
 
 muestraCarta.listaAleatoria = muestraCarta.ReordenarBaraja(muestraCarta.listaCartas, muestraCarta.listaAleatoria);
 Console.WriteLine($"La cantidad de cartas reordenadas antes del reparto {muestraCarta.listaAleatoria.Count}");
@@ -15,11 +16,14 @@ muestraCarta.MostrarListaCartasAleatoria();
 
 jugador1.Mano = muestraCarta.RepartirMazo(jugador1.Mano, muestraCarta.listaAleatoria, true);
 
-//listaPrueba = muestraCarta.RepartirMazo(listaPrueba, muestraCarta.listaAleatoria, true);
+Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine("Se realizó el reparto de cartas al jugador");
 Console.WriteLine("--------------------------------------------------------");
 muestraCarta.MostrarListaCartasAleatoria();
 Console.WriteLine("--------------------------------------------------------");
 Console.WriteLine($"La cantidad de cartas después del reparto {muestraCarta.listaAleatoria.Count}");
+Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine("La lista de cartas del jugador con la carta seleccionada");
 Console.WriteLine("--------------------------------------------------------");
 
 for (int i = 0; i < jugador1.Mano.Count; i++)
@@ -30,6 +34,8 @@ for (int i = 0; i < jugador1.Mano.Count; i++)
 Console.WriteLine("--------------------------------------------------------");
 Console.WriteLine($"Carta seleccionada con el rango más alto {muestraCarta.cartaSeleccionada[0].Val}, {muestraCarta.cartaSeleccionada[0].Pinta}, {muestraCarta.cartaSeleccionada[0].Nombre}");
 Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine("La lista de cartas del jugador con la carta seleccionada devuelta al mazo");
+Console.WriteLine("--------------------------------------------------------");
 
 jugador1.Mano = muestraCarta.RepartirMazo(jugador1.Mano, muestraCarta.listaAleatoria, false);
 
@@ -39,7 +45,6 @@ for (int i = 0; i < jugador1.Mano.Count; i++)
 }
 
 jugador1.DescartarCartaMazo(1, jugador1, true);
-
 Console.WriteLine("--------------------------------------------------------");
 
 for (int i = 0; i < jugador1.Mano.Count; i++)
@@ -48,9 +53,7 @@ for (int i = 0; i < jugador1.Mano.Count; i++)
 }
 
 Console.WriteLine("--------------------------------------------------------");
-
 jugador1.RobarCartaBaraja(jugador1, muestraCarta.listaAleatoria, true);
-
 Console.WriteLine("--------------------------------------------------------");
 
 for (int i = 0; i < jugador1.Mano.Count; i++)
@@ -59,12 +62,10 @@ for (int i = 0; i < jugador1.Mano.Count; i++)
 }
 
 Console.WriteLine("--------------------------------------------------------");
-
 muestraCarta.ReinicioBaraja(jugador1.Mano, muestraCarta.listaAleatoria);
 
 Console.WriteLine($"Mazo reiniciado (cantidad): {jugador1.Mano.Count}");
 Console.WriteLine($"Baraja reiniciada (si es cero, la baraja está ordenada): {muestraCarta.listaAleatoria.Count}");
-
 Console.WriteLine("--------------------------------------------------------");
 
 class Carta
@@ -255,6 +256,11 @@ class Jugador
                 listaBarajaAleatoria.Add(cartaSeleccionadaBaraja[0]);
                 jugador.Mano.Remove(cartaSeleccionadaBaraja[0]);
             }
+            else
+            {
+                Console.WriteLine("--------------------------------------------------------");
+                Console.WriteLine("El jugador adquiere la carta de la baraja");
+            }
 
             cartaSeleccionadaBaraja.Clear();
         }
@@ -273,6 +279,9 @@ class Jugador
             
             cartasJugador.cartaSeleccionada.Add(jugador.Mano[indice - 1]);
             jugador.Mano.RemoveAt(indice - 1);
+
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine("Se descarta la carta seleccionada por el jugador");
         }
         else
         {
